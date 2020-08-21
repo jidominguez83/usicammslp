@@ -12,23 +12,6 @@ $(document).ready(function(){
     })
     .change();
 
-/*
-    // Muestra u oculta el div para subir documento de incidencia
-    $("#nivel_educativo").hide();
-    $("#id_proceso_otro").change(function(){
-        var $input = $(this);
-
-        if($input.prop("checked") == true){
-            $("#nivel_educativo").show('normal');
-            console.log("entro");
-        } else {
-            $("#nivel_educativo").hide('normal');
-            console.log("salgo");
-        }
-    })
-    .change(); 
-    */    
-
     /* Habilita y deshabilita las opciones de búsqueda según se elija por CURP o por Tipo de Evaluación. */
     $("#buscar_curp").keyup(function() {
         if ($("#buscar_curp").val() == "") {

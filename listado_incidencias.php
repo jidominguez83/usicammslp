@@ -117,8 +117,8 @@ endif;
 				<tr class="Bottom">
 					<td colspan="25">&nbsp;<?php if(!isset($_GET['buscar_curp'])) echo $paginationCtrls; ?> </td>
 				</tr>
-        	</table>
-      	</td>
+            </table>
+		</td>
     </tr>
 </table>
 </body>
