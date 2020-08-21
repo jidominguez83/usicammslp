@@ -1,0 +1,470 @@
+/* Small Block Grids */
+.lt-ie9 .small-block-grid-2 {
+    list-style: none
+}
+ 
+.lt-ie9 .small-block-grid-2 li {
+    float: left;
+    width: 50%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .small-block-grid-2 li:first-child+li {
+    float: right
+}
+ 
+.lt-ie9 .small-block-grid-2 li:first-child+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .small-block-grid-3 {
+    list-style: none
+}
+ 
+.lt-ie9 .small-block-grid-3 li {
+    float: left;
+    width: 33.3333%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .small-block-grid-3 li:first-child+li+li {
+    float: right
+}
+ 
+.lt-ie9 .small-block-grid-3 li:first-child+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .small-block-grid-4 {
+    list-style: none
+}
+ 
+.lt-ie9 .small-block-grid-4 li {
+    float: left;
+    width: 25%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .small-block-grid-4 li:first-child+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .small-block-grid-4 li:first-child+li+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .small-block-grid-5 {
+    list-style: none
+}
+ 
+.lt-ie9 .small-block-grid-5 li {
+    float: left;
+    width: 20%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .small-block-grid-5 li:first-child+li+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .small-block-grid-5 li:first-child+li+li+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .small-block-grid-6 {
+    list-style: none
+}
+ 
+.lt-ie9 .small-block-grid-6 li {
+    float: left;
+    width: 16.6667%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .small-block-grid-6 li:first-child+li+li+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .small-block-grid-6 li:first-child+li+li+li+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .small-block-grid-7 {
+    list-style: none
+}
+ 
+.lt-ie9 .small-block-grid-7 li {
+    float: left;
+    width: 14.2857142%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .small-block-grid-7 li:first-child+li+li+li+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .small-block-grid-7 li:first-child+li+li+li+li+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .small-block-grid-8 {
+    list-style: none
+}
+ 
+.lt-ie9 .small-block-grid-8 li {
+    float: left;
+    width: 12.5%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .small-block-grid-8 li:first-child+li+li+li+li+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .small-block-grid-8 li:first-child+li+li+li+li+li+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .small-block-grid-9 {
+    list-style: none
+}
+ 
+.lt-ie9 .small-block-grid-9 li {
+    float: left;
+    width: 11.111111%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .small-block-grid-9 li:first-child+li+li+li+li+li+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .small-block-grid-9 li:first-child+li+li+li+li+li+li+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .small-block-grid-10 {
+    list-style: none
+}
+ 
+.lt-ie9 .small-block-grid-10 li {
+    float: left;
+    width: 10%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .small-block-grid-10 li:first-child+li+li+li+li+li+li+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .small-block-grid-10 li:first-child+li+li+li+li+li+li+li+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .small-block-grid-11 {
+    list-style: none
+}
+ 
+.lt-ie9 .small-block-grid-11 li {
+    float: left;
+    width: 9.0909%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .small-block-grid-11 li:first-child+li+li+li+li+li+li+li+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .small-block-grid-11 li:first-child+li+li+li+li+li+li+li+li+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .small-block-grid-12 {
+    list-style: none
+}
+ 
+.lt-ie9 .small-block-grid-12 li {
+    float: left;
+    width: 8.333333%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .small-block-grid-12 li:first-child+li+li+li+li+li+li+li+li+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .small-block-grid-12 li:first-child+li+li+li+li+li+li+li+li+li+li+li+li {
+    clear: both
+}
+
+/****************large block grid*************/
+/* Small Block Grids */
+.lt-ie9 .large-block-grid-2 {
+    list-style: none
+}
+ 
+.lt-ie9 .large-block-grid-2 li {
+    float: left;
+    width: 50%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .large-block-grid-2 li:first-child+li {
+    float: right
+}
+ 
+.lt-ie9 .large-block-grid-2 li:first-child+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .large-block-grid-3 {
+    list-style: none
+}
+ 
+.lt-ie9 .large-block-grid-3 li {
+    float: left;
+    width: 33.3333%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .large-block-grid-3 li:first-child+li+li {
+    float: right
+}
+ 
+.lt-ie9 .large-block-grid-3 li:first-child+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .large-block-grid-4 {
+    list-style: none
+}
+ 
+.lt-ie9 .large-block-grid-4 li {
+    float: left;
+    width: 25%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .large-block-grid-4 li:first-child+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .large-block-grid-4 li:first-child+li+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .large-block-grid-5 {
+    list-style: none
+}
+ 
+.lt-ie9 .large-block-grid-5 li {
+    float: left;
+    width: 20%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .large-block-grid-5 li:first-child+li+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .large-block-grid-5 li:first-child+li+li+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .large-block-grid-6 {
+    list-style: none
+}
+ 
+.lt-ie9 .large-block-grid-6 li {
+    float: left;
+    width: 16.6667%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .large-block-grid-6 li:first-child+li+li+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .large-block-grid-6 li:first-child+li+li+li+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .large-block-grid-7 {
+    list-style: none
+}
+ 
+.lt-ie9 .large-block-grid-7 li {
+    float: left;
+    width: 14.2857142%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .large-block-grid-7 li:first-child+li+li+li+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .large-block-grid-7 li:first-child+li+li+li+li+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .large-block-grid-8 {
+    list-style: none
+}
+ 
+.lt-ie9 .large-block-grid-8 li {
+    float: left;
+    width: 12.5%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .large-block-grid-8 li:first-child+li+li+li+li+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .large-block-grid-8 li:first-child+li+li+li+li+li+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .large-block-grid-9 {
+    list-style: none
+}
+ 
+.lt-ie9 .large-block-grid-9 li {
+    float: left;
+    width: 11.111111%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .large-block-grid-9 li:first-child+li+li+li+li+li+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .large-block-grid-9 li:first-child+li+li+li+li+li+li+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .large-block-grid-10 {
+    list-style: none
+}
+ 
+.lt-ie9 .large-block-grid-10 li {
+    float: left;
+    width: 10%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .large-block-grid-10 li:first-child+li+li+li+li+li+li+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .large-block-grid-10 li:first-child+li+li+li+li+li+li+li+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .large-block-grid-11 {
+    list-style: none
+}
+ 
+.lt-ie9 .large-block-grid-11 li {
+    float: left;
+    width: 9.0909%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .large-block-grid-11 li:first-child+li+li+li+li+li+li+li+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .large-block-grid-11 li:first-child+li+li+li+li+li+li+li+li+li+li+li {
+    clear: both
+}
+ 
+.lt-ie9 .large-block-grid-12 {
+    list-style: none
+}
+ 
+.lt-ie9 .large-block-grid-12 li {
+    float: left;
+    width: 8.333333%;
+    padding: 0 10px 10px;
+}
+ 
+.lt-ie9 .large-block-grid-12 li:first-child+li+li+li+li+li+li+li+li+li+li+li {
+    float: right
+}
+ 
+.lt-ie9 .large-block-grid-12 li:first-child+li+li+li+li+li+li+li+li+li+li+li+li {
+    clear: both
+}
+
+.lt-ie9 [class*="column"]+[class*="column"]:last-child {
+	float: right;
+}
+/***************custom ie8 fixes**************/
+
+p, div, .content * {
+	font-size:12px;
+}
+.sf-menu a{
+	font-size: 20px;
+}
+.lt-ie9 .columns.plr0{
+	padding: 0;
+}
+.lt-ie9 .pr0,.lt-ie9 .columns.pr0 {
+	padding-right: 0;
+}
+.lt-ie9 .columns.tagline{
+	padding: 30px;
+}
+.lt-ie9 .columns.wrapper{
+	padding: 30px;
+}
+h1.page-title {
+	font-size:32px;
+}
+h3.employer-name{
+	font-size: 20px;
+}
+.sidebar li a {
+	color: #5f6d63;
+}
+li.bullet {
+	padding: 15px 0;
+}
+ul.desc li.bullet, .ul.desc {
+	padding: 0;
+	margin: 0;
+}
+.footer nav.footer-bar a{
+	font-size: 16px;
+	margin-top:3px;
+}
+h4.footer-call{
+	font-size: 20px;
+	margin-top:5px;
+}
+.footer ul.facebook li a{
+	font-size: 16px;
+}
+
+.footer-social{
+	float: right;
+}
+#contact-form input{
+	padding: 10px;
+	display: block
+}
+
+.lt-ie9 .row.footer-meta{
+	margin-top:20px;
+}
+.footer ul.facebook li.last-child{
+	margin-right: 0;
+}
+ul.vcard{
+	font-size: 20px;
+}
+ul.vcard li,ul.vcard a, ul.vcard span{
+	font-size: 18px;
+}
