@@ -51,7 +51,8 @@ WHERE pp.id_proceso = 1 AND pp.ciclo = '2020-2021' AND pp.id_tipo_evaluacion = '
 			<table class="Header" border="0" cellspacing="0" cellpadding="0" width="800" align="center">
 				<tr>
 					<td class="HeaderLeft"><img border="0" alt="" src="css/images/Spacer.gif"></td> 
-					<td class="th">Búsqueda por CURP&nbsp;&nbsp;
+					<td class="th">Búsqueda por:<br><br>
+                    CURP&nbsp;
 					<input type="text" name="buscar_curp" id="buscar_curp" minlength="18" maxlength="18" value="<?php if(isset($_GET['buscar_curp'])) { echo $_GET['buscar_curp']; } ?>" placeholder="Escribe una CURP válida">
                     &nbsp;ó&nbsp;Tipo de evaluación&nbsp;
                     <select id="buscar_tipo_eval" name="buscar_tipo_eval">
@@ -66,7 +67,20 @@ WHERE pp.id_proceso = 1 AND pp.ciclo = '2020-2021' AND pp.id_tipo_evaluacion = '
                         }
                         ?>
                     </select>
-                    &nbsp;&nbsp;<input id="buscar" value="L" class="button-icon" alt="Buscar" type="submit" name="buscar">
+                    &nbsp;
+                    Ciclo&nbsp;
+                    <select id="buscar_ciclo" name="buscar_ciclo">
+                        <option value="2020-2021">2020-2021</option>
+                    </select>
+                    &nbsp;
+                    Lista&nbsp;
+                    <select id="buscar_lista" id="buscar_lista">
+                        <option value="AMBAS">Ambas</option>
+                        <option value="LISTA1">Lista 1</option>
+                        <option value="LISTA2">Lista 2</option>
+                    </select>
+                    &nbsp;
+                    <input id="buscar" value="L" class="button-icon" alt="Buscar" type="submit" name="buscar">
                     </td> 
 					<td class="HeaderRight"><img border="0" alt="" src="css/images/Spacer.gif"></td>
 				</tr>
