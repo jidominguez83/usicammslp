@@ -43,18 +43,20 @@ if($last != 1){
     if ($pagenum > 1) {
         $previous = $pagenum - 1;
 
-        if(isset($_GET['buscar_tipo_eval'])){
-            $buscar_tipo_eval = $_GET['buscar_tipo_eval'];
-            $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?buscar_tipo_eval='.$buscar_tipo_eval.'&pn='.$previous.'" class="btn-pagination">Anterior</a>  |  ';
+        if(isset($_GET['tipo_eval']) && isset($_GET['lista'])){
+            $tipo_eval = $_GET['tipo_eval'];
+            $lista     = $_GET['lista'];
+            $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?tipo_eval='.$tipo_eval.'&lista='.$lista.'&ciclo='.$ciclo.'&pn='.$previous.'" class="btn-pagination">Anterior</a>  |  ';
         } else {
             $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'" class="btn-pagination">Anterior</a>  |  ';
         }
         
         for($i = $pagenum-4; $i < $pagenum; $i++){
             if($i > 0){
-                if(isset($_GET['buscar_tipo_eval'])){
-                    $buscar_tipo_eval = $_GET['buscar_tipo_eval'];
-                    $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?buscar_tipo_eval='.$buscar_tipo_eval.'&pn='.$i.'" class="btn-pagination">'.$i.'</a>  |  ';
+                if(isset($_GET['buscar_tipo_eval']) && isset($_GET['lista'])){
+                    $tipo_eval = $_GET['buscar_tipo_eval'];
+                    $lista     = $_GET['lista'];
+                    $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?tipo_eval='.$tipo_eval.'&lista='.$lista.'&ciclo='.$ciclo.'&pn='.$i.'" class="btn-pagination">'.$i.'</a>  |  ';
                 } else {
                     $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$i.'" class="btn-pagination">'.$i.'</a>  |  ';
                 }
@@ -65,9 +67,10 @@ if($last != 1){
     $paginationCtrls .= "  <span class='actual'>".$pagenum."</span> ";
 
     for($i = $pagenum+1; $i <= $last; $i++){
-        if(isset($_GET['buscar_tipo_eval'])){
-            $buscar_tipo_eval = $_GET['buscar_tipo_eval'];
-            $paginationCtrls .= '  |  <a href="'.$_SERVER['PHP_SELF'].'?buscar_tipo_eval='.$buscar_tipo_eval.'&pn='.$i.'" class="btn-pagination">'.$i.'</a>';
+        if(isset($_GET['tipo_eval']) && isset($_GET['lista'])){
+            $tipo_eval = $_GET['tipo_eval'];
+            $lista     = $_GET['lista'];
+            $paginationCtrls .= '  |  <a href="'.$_SERVER['PHP_SELF'].'?tipo_eval='.$tipo_eval.'&lista='.$lista.'&ciclo='.$ciclo.'&pn='.$i.'" class="btn-pagination">'.$i.'</a>';
         } else {
             $paginationCtrls .= '  |  <a href="'.$_SERVER['PHP_SELF'].'?pn='.$i.'" class="btn-pagination">'.$i.'</a>';
         }    
@@ -78,9 +81,10 @@ if($last != 1){
 
     if ($pagenum != $last) {
         $next = $pagenum + 1;
-        if(isset($_GET['buscar_tipo_eval'])){
-            $buscar_tipo_eval = $_GET['buscar_tipo_eval'];
-            $paginationCtrls .= '  |  <a href="'.$_SERVER['PHP_SELF'].'?buscar_tipo_eval='.$buscar_tipo_eval.'&pn='.$next.'" class="btn-pagination">Siguiente</a> ';
+        if(isset($_GET['tipo_eval']) && isset($_GET['lista'])){
+            $tipo_eval = $_GET['tipo_eval'];
+            $lista     = $_GET['lista'];
+            $paginationCtrls .= '  |  <a href="'.$_SERVER['PHP_SELF'].'?tipo_eval='.$tipo_eval.'&lista='.$lista.'&ciclo='.$ciclo.'&pn='.$next.'" class="btn-pagination">Siguiente</a> ';
         } else {
             $paginationCtrls .= '  |  <a href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'" class="btn-pagination">Siguiente</a> ';
         }

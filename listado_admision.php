@@ -1,20 +1,42 @@
 <?php
 require_once 'includes/header.php';  // Carga el encabezado de la página.
 
-if(isset($_GET['buscar_curp'])){
-	$curp     = $_GET['buscar_curp'];
+if(isset($_GET['ciclo'])){
+    $ciclo        = $_GET['ciclo']; 
+    $ciclo_titulo = ", CICLO ESCOLAR $ciclo";
+} else {
+    $ciclo_titulo = "";
+}
+
+if(isset($_GET['lista'])){
+    $lista = $_GET['lista'];
+    
+    if($lista != 'TODOS'){
+        $query_lista = " AND lista_o_grupo = '$lista'";
+    } else {
+        $query_lista = "";
+    }
+} else {
+    $query_lista = "";
+}
+
+if(isset($_GET['curp'])){
+
+	$curp     = $_GET['curp'];
 	$consulta = "SELECT pp.*, ra.*, CONCAT(dp.nombre, ' ', dp.apellido_paterno, ' ', dp.apellido_materno) AS nombre_completo, p.nombre_proceso, te.nombre_evaluacion, te.funcion
 	FROM proceso_participa pp
     LEFT JOIN resultados_admision ra ON pp.id = ra.id_proceso_participa
 	INNER JOIN datos_personales dp ON pp.curp = dp.curp 
 	LEFT JOIN proceso p ON pp.id_proceso = p.id 
 	LEFT JOIN tipo_evaluacion te ON pp.id_tipo_evaluacion = te.id
-    WHERE pp.id_proceso = 1 AND pp.ciclo = '2020-2021' AND pp.curp = '$curp'";
+    WHERE pp.id_proceso = 1  AND pp.ciclo = '$ciclo' AND pp.curp LIKE '%$curp%'";
 
     $nquery = mysqli_query($dbase, $consulta);
     $num_rows = mysqli_num_rows($nquery);
-} else if(isset($_GET['buscar_tipo_eval'])){
-    $buscar_tipo_eval = $_GET['buscar_tipo_eval'];
+
+} else if(isset($_GET['tipo_eval'])){
+
+    $buscar_tipo_eval = $_GET['tipo_eval'];
 
 	$query_pagination = "SELECT COUNT(pp.id)
 	FROM proceso_participa pp
@@ -22,15 +44,15 @@ if(isset($_GET['buscar_curp'])){
 	INNER JOIN datos_personales dp ON pp.curp = dp.curp 
 	LEFT JOIN proceso p ON pp.id_proceso = p.id 
 	LEFT JOIN tipo_evaluacion te ON pp.id_tipo_evaluacion = te.id
-    WHERE pp.id_proceso = 1 AND pp.ciclo = '2020-2021' AND pp.id_tipo_evaluacion = '$buscar_tipo_eval'";
+    WHERE pp.id_proceso = 1 AND pp.ciclo = '$ciclo' AND pp.id_tipo_evaluacion = '$buscar_tipo_eval' $query_lista";
 
-	$limits_query = "SELECT pp.*, ra.*, CONCAT(dp.nombre, ' ', dp.apellido_paterno, ' ', dp.apellido_materno) AS nombre_completo, p.nombre_proceso, te.nombre_evaluacion, te.funcion
+    $limits_query = "SELECT pp.*, ra.*, CONCAT(dp.nombre, ' ', dp.apellido_paterno, ' ', dp.apellido_materno) AS nombre_completo, p.nombre_proceso, te.nombre_evaluacion, te.funcion
 	FROM proceso_participa pp
     LEFT JOIN resultados_admision ra ON pp.id = ra.id_proceso_participa
 	INNER JOIN datos_personales dp ON pp.curp = dp.curp 
 	LEFT JOIN proceso p ON pp.id_proceso = p.id 
 	LEFT JOIN tipo_evaluacion te ON pp.id_tipo_evaluacion = te.id
-WHERE pp.id_proceso = 1 AND pp.ciclo = '2020-2021' AND pp.id_tipo_evaluacion = '$buscar_tipo_eval' ORDER BY ra.lista_o_grupo, ra.orden_prelacion";
+WHERE pp.id_proceso = 1 AND pp.ciclo = '$ciclo' AND pp.id_tipo_evaluacion = '$buscar_tipo_eval' $query_lista ORDER BY ra.lista_o_grupo, ra.orden_prelacion";
     
     require_once 'includes/pagination.php'; // Carga las funciones para paginar los resultados.
     
@@ -42,44 +64,69 @@ WHERE pp.id_proceso = 1 AND pp.ciclo = '2020-2021' AND pp.id_tipo_evaluacion = '
 
 ?>
 
-<center><h2>LISTADO DE ASPIRANTES DE ADMISIÓN</h2></center>
+<center><h2>LISTADO DE ASPIRANTES DE ADMISIÓN<?= $ciclo_titulo ?></h2></center>
 <!-- BEGIN Grid listado aspirantes -->
 <form id="form1" method="get" name="form1" action="listado_admision.php">
 <table border="0" cellspacing="0" cellpadding="0" width="90%" align="center" class="MainTable">
     <tr>
 		<td valign="top">
 			<table class="Header" border="0" cellspacing="0" cellpadding="0" width="800" align="center">
-				<tr>
+                <tr class="th">
 					<td class="HeaderLeft"><img border="0" alt="" src="css/images/Spacer.gif"></td> 
-					<td class="th">Búsqueda por:<br><br>
+					<td class="th">
+                    Búsqueda por:<br><br>
                     CURP&nbsp;
-					<input type="text" name="buscar_curp" id="buscar_curp" minlength="18" maxlength="18" value="<?php if(isset($_GET['buscar_curp'])) { echo $_GET['buscar_curp']; } ?>" placeholder="Escribe una CURP válida">
+					<input type="text" name="curp" id="buscar_curp" maxlength="18" value="<?php if(isset($_GET['curp'])) { echo $_GET['curp']; } ?>" placeholder="Escribe una CURP válida">
                     &nbsp;ó&nbsp;Tipo de evaluación&nbsp;
-                    <select id="buscar_tipo_eval" name="buscar_tipo_eval">
+                    <select id="buscar_tipo_eval" name="tipo_eval">
                         <option value="0">-- Selecciona un tipo de evaluación --</option>
                         <?php
                         $consulta_eva = "SELECT * FROM tipo_evaluacion WHERE funcion = 'Docente' OR funcion = 'Técnico docente' ORDER BY nombre_evaluacion";
                         $query = mysqli_query($dbase, $consulta_eva);
                         while($tipo_eval = mysqli_fetch_array($query)){
                         ?>
-                        <option value="<?= $tipo_eval['id'] ?>" <?php if(isset($_GET['buscar_tipo_eval'])){ if($_GET['buscar_tipo_eval'] == $tipo_eval['id']){ echo "selected='selected'"; }}?>><?= $tipo_eval['funcion'].'. '.$tipo_eval['nombre_evaluacion'] ?></option>
+                        <option value="<?= $tipo_eval['id'] ?>" <?php if(isset($_GET['tipo_eval'])){ if($_GET['tipo_eval'] == $tipo_eval['id']){ echo "selected='selected'"; }}?>><?= $tipo_eval['funcion'].'. '.$tipo_eval['nombre_evaluacion'] ?></option>
                         <?php
                         }
                         ?>
                     </select>
                     &nbsp;
-                    Ciclo&nbsp;
-                    <select id="buscar_ciclo" name="buscar_ciclo">
-                        <option value="2020-2021">2020-2021</option>
-                    </select>
                     &nbsp;
-                    Lista&nbsp;
-                    <select id="buscar_lista" id="buscar_lista">
-                        <option value="AMBAS">Ambas</option>
-                        <option value="LISTA1">Lista 1</option>
-                        <option value="LISTA2">Lista 2</option>
-                    </select>
+                    <?php 
+                    if($ciclo == '2020-2021'):
+                        $titulo_lista = 'Lista';
+                    ?>  
+                        <?= $titulo_lista ?>&nbsp;
+                        <select id="buscar_lista" name="lista">
+                            <option value="TODOS" <?php if(isset($lista)){ if($lista == 'TODOS'){ echo "selected='selected'"; } } ?>>Ambas</option>
+                            <option value="LISTA1" <?php if(isset($lista)){ if($lista == 'LISTA1'){ echo "selected='selected'"; } } ?>>Lista 1</option>
+                            <option value="LISTA2" <?php if(isset($lista)){ if($lista == 'LISTA2'){ echo "selected='selected'"; } }?>>Lista 2</option>
+                        </select>    
+                    <?php 
+                    elseif($ciclo == '2019-2020'):
+                        $titulo_lista = 'Grupo';
+                    ?>    
+                        <?= $titulo_lista ?>&nbsp;
+                        <select id="buscar_lista" name="lista">
+                            <option value="TODOS" <?php if(isset($lista)){ if($lista == 'TODOS'){ echo "selected='selected'"; } } ?>>Ambos</option>
+                            <option value="A" <?php if(isset($lista)){ if($lista == 'A'){ echo "selected='selected'"; } } ?>>Grupo A</option>
+                            <option value="B" <?php if(isset($lista)){ if($lista == 'B'){ echo "selected='selected'"; } } ?>>Grupo B</option>
+                        </select>    
+                    <?php
+                    elseif($ciclo == '2018-2019' || $ciclo == '2017-2018' || $ciclo == '2016-2017' || $ciclo == '2015-2016'):
+                        $titulo_lista = 'Desempeño';
+                    ?>    
+                        <?= $titulo_lista ?>&nbsp;
+                        <select id="buscar_lista" name="lista">
+                            <option value="TODOS" <?php if(isset($lista)){ if($lista == 'TODOS'){ echo "selected='selected'"; } } ?>>Ambos</option>
+                            <option value="Idóneo" <?php if(isset($lista)){ if($lista == 'Idóneo'){ echo "selected='selected'"; } } ?>>Idóneo</option>
+                            <option value="No idóneo" <?php if(isset($lista)){ if($lista == 'No idóneo'){ echo "selected='selected'"; } } ?>>No idóneo</option>
+                        </select>                        
+                    <?php
+                    endif;
+                    ?>
                     &nbsp;
+                    <input type="hidden" value="<?= $ciclo ?>" name="ciclo">
                     <input id="buscar" value="L" class="button-icon" alt="Buscar" type="submit" name="buscar">
                     </td> 
 					<td class="HeaderRight"><img border="0" alt="" src="css/images/Spacer.gif"></td>
@@ -118,7 +165,7 @@ if($num_rows > 0):
 <?php
 	endwhile;
 else:
-            if(isset($_GET['buscar_curp']) || isset($_GET['buscar_tipo_eval'])):
+            if(isset($_GET['curp']) || isset($_GET['tipo_eval'])):
 ?>
 				<tr class="Controls">
 					<td class="NoRecords" colspan="8"><center><b>NO HAY REGISTROS</b></center></td> 
@@ -126,12 +173,12 @@ else:
 <?php
             endif;
 endif;
-            if(isset($_GET['buscar_curp']) || isset($_GET['buscar_tipo_eval'])):
+            if(isset($_GET['curp']) || isset($_GET['tipo_eval'])):
 ?>
 				<tr class="Bottom">
 					<td colspan="25">&nbsp;
                     <?php 
-                    if(isset($_GET['buscar_tipo_eval'])) {
+                    if(isset($_GET['tipo_eval'])) {
                         echo $paginationCtrls;
                     } 
                     ?> </td>

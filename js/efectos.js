@@ -16,10 +16,13 @@ $(document).ready(function(){
     $("#buscar_curp").keyup(function() {
         if ($("#buscar_curp").val() == "") {
             $("#buscar_tipo_eval").prop("disabled", false);
+            $("#buscar_lista").prop("disabled", false);
         } else {
-            $("#buscar_tipo_eval").prop("disabled", true );
+            $("#buscar_tipo_eval").prop("disabled", true);
+            $("#buscar_lista").prop("disabled", true);
         }
     });
+
     $("#buscar_tipo_eval").change(function() {
         if (parseInt($("#buscar_tipo_eval").val()) === 0) {
             $("#buscar_curp").prop("disabled", false);
@@ -27,4 +30,13 @@ $(document).ready(function(){
             $("#buscar_curp").prop("disabled", true);
         }
     });
+
+    $("#buscar_lista").change(function() {
+        if (parseInt($("#buscar_lista").val()) === "TODOS") {
+            $("#buscar_curp").prop("disabled", false);
+        } else {
+            $("#buscar_curp").prop("disabled", true);
+        }
+    });
+
 })
