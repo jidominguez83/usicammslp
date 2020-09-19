@@ -26,7 +26,15 @@ if(isset($_SESSION['errores'])):
   $errores = $_SESSION['errores'];
 endif;
 
-$consulta = "SELECT i.*, CONCAT(dp.nombre, ' ', dp.apellido_paterno, ' ', dp.apellido_materno) AS nombre_completo FROM incidencia i INNER JOIN datos_personales dp ON i.curp = dp.curp LEFT JOIN proceso_participa pp ON i.id_proceso_participa = pp.id INNER JOIN proceso p ON pp.id_proceso = p.id WHERE folio = $folio";
+$consulta = "SELECT i.*, CONCAT(dp.nombre, ' ', dp.apellido_paterno, ' ', dp.apellido_materno) AS nombre_completo, te.nombre_evaluacion, te.funcion, ne.nombre_nivel, len.nombre_lengua
+FROM incidencia i 
+INNER JOIN datos_personales dp ON i.curp = dp.curp 
+LEFT JOIN proceso_participa pp ON i.id_proceso_participa = pp.id 
+LEFT JOIN tipo_evaluacion te ON pp.id_tipo_evaluacion = te.id
+INNER JOIN proceso p ON pp.id_proceso = p.id
+INNER JOIN nivel_educativo ne ON ne.id_nivel_educativo = i.id_nivel_educativo
+LEFT JOIN lengua len ON pp.id_lengua = len.id
+WHERE folio = $folio";
 $sql      = mysqli_query($dbase, $consulta);
 ?>
 
@@ -70,16 +78,12 @@ $sql      = mysqli_query($dbase, $consulta);
 
           <tr class="Controls">
             <td class="th"><label for="nivel_educativo">Nivel educativo</label></td> 
-            <td><?= $incidencia['id_nivel_educativo'] ?></td> 
+            <td><?= $incidencia['nombre_nivel'] ?></td> 
           </tr>
 
           <tr class="Controls">
             <td class="th"><label for="tipo_evaluacion">Tipo de valoración/evaluación</label></td> 
-            <td>
-              
-          <?php 
-
-            ?>
+            <td><?= $incidencia['funcion'].'. '.$incidencia['nombre_evaluacion'] ?><?php if(!empty($incidencia['nombre_lengua'])){ echo '. '.$incidencia['nombre_lengua']; } ?></td>
           </tr>
 
           <tr class="Controls">

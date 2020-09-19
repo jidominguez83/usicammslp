@@ -23,12 +23,13 @@ if(isset($_GET['lista'])){
 if(isset($_GET['curp'])){
 
 	$curp     = $_GET['curp'];
-	$consulta = "SELECT pp.*, ra.*, CONCAT(dp.nombre, ' ', dp.apellido_paterno, ' ', dp.apellido_materno) AS nombre_completo, p.nombre_proceso, te.nombre_evaluacion, te.funcion
+	$consulta = "SELECT pp.*, ra.*, CONCAT(dp.nombre, ' ', dp.apellido_paterno, ' ', dp.apellido_materno) AS nombre_completo, p.nombre_proceso, te.nombre_evaluacion, te.funcion, len.nombre_lengua
 	FROM proceso_participa pp
     LEFT JOIN resultados_admision ra ON pp.id = ra.id_proceso_participa
 	INNER JOIN datos_personales dp ON pp.curp = dp.curp 
 	LEFT JOIN proceso p ON pp.id_proceso = p.id 
 	LEFT JOIN tipo_evaluacion te ON pp.id_tipo_evaluacion = te.id
+    LEFT JOIN lengua len ON pp.id_lengua = len.id
     WHERE pp.id_proceso = 1  AND pp.ciclo = '$ciclo' AND pp.curp LIKE '%$curp%'";
 
     $nquery = mysqli_query($dbase, $consulta);
@@ -46,12 +47,13 @@ if(isset($_GET['curp'])){
 	LEFT JOIN tipo_evaluacion te ON pp.id_tipo_evaluacion = te.id
     WHERE pp.id_proceso = 1 AND pp.ciclo = '$ciclo' AND pp.id_tipo_evaluacion = '$buscar_tipo_eval' $query_lista";
 
-    $limits_query = "SELECT pp.*, ra.*, CONCAT(dp.nombre, ' ', dp.apellido_paterno, ' ', dp.apellido_materno) AS nombre_completo, p.nombre_proceso, te.nombre_evaluacion, te.funcion
+    $limits_query = "SELECT pp.*, ra.*, CONCAT(dp.nombre, ' ', dp.apellido_paterno, ' ', dp.apellido_materno) AS nombre_completo, p.nombre_proceso, te.nombre_evaluacion, te.funcion, len.nombre_lengua
 	FROM proceso_participa pp
     LEFT JOIN resultados_admision ra ON pp.id = ra.id_proceso_participa
 	INNER JOIN datos_personales dp ON pp.curp = dp.curp 
 	LEFT JOIN proceso p ON pp.id_proceso = p.id 
 	LEFT JOIN tipo_evaluacion te ON pp.id_tipo_evaluacion = te.id
+    LEFT JOIN lengua len ON pp.id_lengua = len.id
 WHERE pp.id_proceso = 1 AND pp.ciclo = '$ciclo' AND pp.id_tipo_evaluacion = '$buscar_tipo_eval' $query_lista ORDER BY ra.lista_o_grupo, ra.orden_prelacion";
     
     require_once 'includes/pagination.php'; // Carga las funciones para paginar los resultados.
@@ -156,7 +158,7 @@ if($num_rows > 0):
 					<td><?= $admision['curp'] ?></td>  
 					<td><?= $admision['nombre_completo'] ?></td>
 					<td><?= $admision['ciclo'] ?></td>
-					<td><?= $admision['funcion'].". ".$admision['nombre_evaluacion'] ?></td>
+					<td><?= $admision['funcion'].". ".$admision['nombre_evaluacion'] ?><?php if(!empty($admision['nombre_lengua'])){ echo '. '.$admision['nombre_lengua']; } ?></td>
 					<td><?= $admision['p_global'] ?></td>   
                     <td><?= $admision['orden_prelacion'] ?></td>        
 					<td><?= $admision['lista_o_grupo'] ?></td>      

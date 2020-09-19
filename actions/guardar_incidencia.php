@@ -3,18 +3,18 @@ require_once '../includes/conexion.php'; // Conexión a la base de datos.
 require_once '../includes/funciones.php'; // Carga archivo de funciones.
 
 if(isset($_POST)){
-	$curp                 = isset($_POST['curp_buscada']) ? trim($_POST['curp_buscada']) : false;
-	$nivel_educativo      = isset($_POST['nivel_educativo']) ? $_POST['nivel_educativo'] : false;
-	$proceso_participa    = isset($_POST['proceso']) ? $_POST['proceso'] : false;
-	$selproceso           = isset($_POST['selproceso']) ? $_POST['selproceso'] : false;
-	$descripcion          = isset($_POST['descripcion']) ? $_POST['descripcion'] : false;
-	$trae_documento       = isset($_POST['trae_documento']) ? $_POST['trae_documento'] : false;
-	$documento_incidencia = isset($_FILES['documento_incidencia']) ? $_FILES['documento_incidencia'] : false;
-	$requiere_respuesta   = isset($_POST['requiere_respuesta']) ? $_POST['requiere_respuesta'] : false;
+	$curp                    = isset($_POST['curp_buscada']) ? trim($_POST['curp_buscada']) : false;
+	$nivel_educativo         = isset($_POST['nivel_educativo']) ? $_POST['nivel_educativo'] : false;
+	$array_proceso_participa = isset($_POST['proceso']) ? $_POST['proceso'] : false;
+	$selproceso              = isset($_POST['selproceso']) ? $_POST['selproceso'] : false;
+	$descripcion             = isset($_POST['descripcion']) ? $_POST['descripcion'] : false;
+	$trae_documento          = isset($_POST['trae_documento']) ? $_POST['trae_documento'] : false;
+	$documento_incidencia    = isset($_FILES['documento_incidencia']) ? $_FILES['documento_incidencia'] : false;
+	$requiere_respuesta      = isset($_POST['requiere_respuesta']) ? $_POST['requiere_respuesta'] : false;
 }
 $PageName = '../agregar_incidencia.php';
 
-if($proceso_participa == 'otro'){
+if($array_proceso_participa == 'otro'){
 	$proceso_participa = $selproceso;
 }
 
@@ -37,7 +37,9 @@ if(!empty($nivel_educativo)){
 }
 
 // Valida que el proceso donde participa el aspirante no esté vacío.
-if(!empty($proceso_participa)){
+if(!empty($array_proceso_participa)){
+	$proceso_participa_separado = explode("-", $array_proceso_participa);
+	$proceso_participa          = $proceso_participa_separado[0];
 	$proceso_participa_validado = true;
 } else {
 	$proceso_participa_validado   = false;
@@ -54,8 +56,9 @@ if(!empty($descripcion) && is_string($descripcion)){
 
 // Valida que el archivo que se subirá al servidor exista y que sea en el formato correcto (PDF).
 if(!empty($trae_documento)){
-	echo "estoy aqui";
-	if(isset($_FILES['documento_incidencia']) || !empty($_FILES['documento_incidencia'])){
+	$longitud = strlen($_FILES['documento_incidencia']['name']);
+	if(isset($_FILES['documento_incidencia']) && $longitud > 0){
+
 		$documento = $_FILES['documento_incidencia'];
 		$tipo      = $documento['type'];
 
@@ -81,12 +84,13 @@ if(empty($trae_documento) && !empty($requiere_respuesta)){
 
 if(count($errores) == 0){
 	// Guarda la información principal del la incidencia.
-	$consulta  = "INSERT INTO incidencia (id_proceso_participa, id_nivel_educativo, curp, descripcion, remitido_a, trae_documento, estatus) VALUES ('$proceso_participa', '$nivel_educativo', '$curp', '$descripcion', '$se_remite_a', '$trae_documento', 'EN PROCESO')";
+	if (empty($trae_documento)){ $trae_documento = 0; }
+	echo $consulta  = "INSERT INTO incidencia (id_proceso_participa, id_nivel_educativo, curp, descripcion, remitido_a, trae_documento, estatus) VALUES ('$proceso_participa', '$nivel_educativo', '$curp', '$descripcion', null, '$trae_documento', 'EN PROCESO')";
 	mysqli_query($dbase, $consulta) or die ("Error al guardar la incidencia.");
 
 	// Obtiene el último folio correspondiente a la CURP.
-	$consulta1 = "SELECT MAX(folio) AS folio_incidencia FROM incidencia WHERE curp = '$curp'";
-	$sql       = mysqli_query($dbase, $consulta1) or die ("Error al obtener el folio y fecha de la incidencia.");
+	$consulta1 = "SELECT MAX(folio) AS folio FROM incidencia WHERE curp = '$curp'";
+	$sql       = mysqli_query($dbase, $consulta1) or die ("Error al obtener el folio de la incidencia.");
 	if($row = mysqli_fetch_row($sql)){
 		$folio = $row[0];
 	}
@@ -96,7 +100,7 @@ if(count($errores) == 0){
 	mysqli_query($dbase, $consulta2) or die ("Error al guardar el seguimiento de la incidencia.");
 
 	// Obtiene el id y la fecha del seguimiento de la incidencia.
-	$consulta3 = "SELECT MAX(id) AS id_seguimiento, fecha FROM seguimiento_incidencia WHERE folio_incidencia = '$folio'"; 
+	$consulta3 = "SELECT MAX(id) AS id_seguimiento, fecha FROM seguimiento_incidencia WHERE folio_incidencia = '$folio' GROUP BY id"; 
 	$sql3           = mysqli_query($dbase, $consulta3) or die ("Error al obtener el folio y fecha de la incidencia.");
 	if($row3 = mysqli_fetch_row($sql3)){
 		$id_seguimiento = $row3[0];
@@ -110,12 +114,13 @@ if(count($errores) == 0){
 		$url = $curp.'-'.$folio.'-'.$id_seguimiento.'-'.$fecha.'.pdf';
 		move_uploaded_file($documento['tmp_name'], '../documentos_incidencias/'.$url);
 
-		$consulta4 = "INSERT INTO documento_incidencia (id_seguimiento, url, requiere_respuesta, fecha)VALUES ('$id_seguimiento', '$url', '$requiere_respuesta', CURDATE())";
+		if(empty($requiere_respuesta)){ $requiere_respuesta = 0; }
+		$consulta4 = "INSERT INTO documento_incidencia (id_seguimiento, url, requiere_respuesta, fecha) VALUES ('$id_seguimiento', '$url', $requiere_respuesta, CURDATE())";
 		mysqli_query($dbase, $consulta4) or die ("Error al guardar el documento de la incidencia.");
 	}
 	pagina($PageName."?error=NO");
 } else {
 	$_SESSION['errores'] = $errores;
-	pagina($PageName."?curp=".$curp);
-}	
+	//pagina($PageName."?curp=".$curp);
+}
 ?>

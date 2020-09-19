@@ -31,14 +31,20 @@ if(isset($_SESSION['usuario'])):
   <!-- Inicio del menú de navegación -->
   <nav id="nav">
       <ul>
-          <li><a href="agregar_incidencia.php">Agregar incidencia</a></li><li><a href="listado_incidencias.php">Ver incidencias</a></li><li><a href="#">Admisión</a>
+          <li><a href="#">Incidencias</a>
+            <ul>
+              <li><a href="agregar_incidencia.php">Agregar incidencia</a></li>
+              <li><a href="listado_incidencias.php">Ver incidencias</a></li>
+            </ul>
+          </li> 
+          <li><a href="#">Admisión</a>
             <ul>
               <li><a href="listado_admision.php?ciclo=2020-2021">2020-2021</a></li>
               <li><a href="listado_admision.php?ciclo=2019-2020">2019-2020</a></li>
               <li><a href="listado_admision.php?ciclo=2018-2019">2018-2019</a></li>
-              <li><a href="listado_admision.php?ciclo=2017-2018">2017-2018</a></li>
+              <!--<li><a href="listado_admision.php?ciclo=2017-2018">2017-2018</a></li>
               <li><a href="listado_admision.php?ciclo=2016-2017">2016-2017</a></li>
-              <li><a href="listado_admision.php?ciclo=2015-2016">2015-2016</a></li>
+              <li><a href="listado_admision.php?ciclo=2015-2016">2015-2016</a></li>-->
             </ul>
           </li>
       </ul>

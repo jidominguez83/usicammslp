@@ -39,7 +39,6 @@ if(isset($_POST)){
     $errores['post'] = 'Datos vacíos.';
 }
 
-var_dump($errores);
 if(count($errores) == 0){
     $PageName = '../index.php';
     pagina($PageName);

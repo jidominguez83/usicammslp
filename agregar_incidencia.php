@@ -70,7 +70,7 @@ endif;
             $sql2      = mysqli_query($dbase, $consulta2);
             
             if(isset($curp) && !empty($curp)):
-              $consulta4 = "SELECT proceso_participa.id, proceso_participa.id_proceso, proceso.nombre_proceso, proceso.abrev_proceso, proceso_participa.ciclo, tipo_evaluacion.nombre_evaluacion, proceso_participa.gpo_desemp, proceso_participa.pos_prelac FROM proceso_participa INNER JOIN proceso ON proceso_participa.id_proceso = proceso.id INNER JOIN tipo_evaluacion ON proceso_participa.id_tipo_evaluacion = tipo_evaluacion.id WHERE proceso_participa.curp = '$curp' ORDER BY proceso_participa.ciclo ASC";
+              $consulta4 = "SELECT proceso_participa.id, proceso_participa.id_proceso, proceso.nombre_proceso, proceso.abrev_proceso, proceso_participa.ciclo, tipo_evaluacion.nombre_evaluacion, tipo_evaluacion.id_nivel_educativo, proceso_participa.gpo_desemp, proceso_participa.pos_prelac, len.nombre_lengua FROM proceso_participa INNER JOIN proceso ON proceso_participa.id_proceso = proceso.id INNER JOIN tipo_evaluacion ON proceso_participa.id_tipo_evaluacion = tipo_evaluacion.id LEFT JOIN lengua len ON proceso_participa.id_lengua = len.id WHERE proceso_participa.curp = '$curp' ORDER BY proceso_participa.ciclo ASC";
 
               $sql4 = mysqli_query($dbase, $consulta4);
               $num4 = mysqli_num_rows($sql4);
@@ -80,19 +80,20 @@ endif;
                 $abrev_proceso_aspirante[] = $row4['abrev_proceso'];
             ?>
           
-            <input type="radio" id="id_proceso_<?= $row4['id'] ?>" name="proceso" value="<?= $row4['id'] ?>" required="required">
-            <label for="id_proceso"><?= $row4['nombre_proceso']." ".$row4['ciclo']."<br>Tipo de evaluación: ".$row4['nombre_evaluacion'] ?></label><br><br> 
+            <input type="radio" id="id_proceso_<?= $row4['id'] ?>" name="proceso" value="<?= $row4['id'].'-'.$row4['id_nivel_educativo'] ?>" required="required" class="sel_proceso_participa">
+            <label for="id_proceso"><?= $row4['nombre_proceso']." ".$row4['ciclo']."<br>Tipo de evaluación: ".$row4['nombre_evaluacion'] ?><?php if(!empty($row4['nombre_lengua'])){ echo '. '.$row4['nombre_lengua']; } ?></label><br><br> 
             <?php      
               endwhile;
             endif; 
             if(isset($num4)): 
               if($num4 > 0):
-                echo '<input type="radio" id="id_proceso_otro" name="proceso" value="otro"><label for="id_proceso">Otro</label>&nbsp;&nbsp;';
+                echo '<input type="radio" id="id_proceso_otro" name="proceso" value="otro" class="sel_proceso_participa"><label for="id_proceso">Otro</label>&nbsp;&nbsp;';
               endif;
             endif;
-			    ?>     
+			    ?>
+          <br>    
           <select name="selproceso" id="proceso">
-            <option value="0">Ninguno</option>
+            <option value="0">-Selecciona un proceso-</option>
             <?php
 			      while($row2 = mysqli_fetch_array($sql2)):
 				  	  $abrev_proceso  = $row2['abrev_proceso'];				
@@ -110,39 +111,31 @@ endif;
 			      endwhile;
 			      ?>
           </select>
+
+          <tr class="Controls">
+            <td class="th"><label for="nivel_educativo">Nivel educativo</label></td>
+            <td>
+            <div id="div_nivel_educativo">
+              <?php 
+              require_once 'includes/carga_niveles.php';
+              ?>
+              <select name="nivel_educativo" id="nivel_educativo" required="required">
+              </select>
+              <?php 
+              if(isset($_SESSION['errores'])):
+                echo mostrarErrores($errores, 'nivel_educativo');
+              endif; 
+              ?>
+            </div>
+            </td>
+          </tr>
+
           <?php 
             if(isset($_SESSION['errores'])):
               echo mostrarErrores($errores, 'nombre_proceso');
             endif; 
             ?>
-          </tr>
-
-          <div id="div_nivel_educativo">  
-          <tr class="Controls">
-            <td class="th"><label for="nivel_educativo">Nivel educativo</label></td> 
-            <td>
-            <?php 
-            $consulta3 = "SELECT * FROM nivel_educativo";
-            $sql3      = mysqli_query($dbase, $consulta3);
-            ?>       
-            <select name="nivel_educativo" id="nivel_educativo" required="required">
-              <option value="">---</option>
-              <?php
-			        while($row3 = mysqli_fetch_array($sql3)):
-				  	    $id_nivel     = $row3['id_nivel_educativo'];				
-                $nombre_nivel = $row3['nombre_nivel'];
-                echo "<option value='$id_nivel'>$nombre_nivel</option>";            
-              endwhile;
-			        ?>
-            </select>
-            <?php 
-            if(isset($_SESSION['errores'])):
-              echo mostrarErrores($errores, 'nivel_educativo');
-            endif; 
-            ?>
-            </td> 
-          </tr>
-          </div>    
+          </tr> 
 
           <tr class="Controls">
             <td class="th"><label for="proceso_participafolio_federal">Asunto / Incidencia</label></td> 

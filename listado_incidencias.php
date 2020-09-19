@@ -3,12 +3,14 @@ require_once 'includes/header.php';  // Carga el encabezado de la página.
 
 if(isset($_GET['buscar_curp'])){
 	$curp     = $_GET['buscar_curp'];
-	$consulta = "SELECT i.folio, i.curp, i.estatus, i.id_proceso_participa, CONCAT(dp.nombre, ' ', dp.apellido_paterno, ' ', dp.apellido_materno) AS nombre_completo, p.nombre_proceso, pp.ciclo,  te.nombre_evaluacion, te.funcion
+	$consulta = "SELECT i.folio, i.curp, i.estatus, i.id_proceso_participa, CONCAT(dp.nombre, ' ', dp.apellido_paterno, ' ', dp.apellido_materno) AS nombre_completo, p.nombre_proceso, pp.ciclo,  te.nombre_evaluacion, te.funcion, len.nombre_lengua
 	FROM incidencia i 
 	LEFT JOIN proceso_participa pp ON i.id_proceso_participa = pp.id 
 	INNER JOIN datos_personales dp ON i.curp = dp.curp 
 	LEFT JOIN proceso p ON pp.id_proceso = p.id 
-	LEFT JOIN tipo_evaluacion te ON pp.id_tipo_evaluacion = te.id WHERE i.curp = '$curp' ORDER BY folio";
+	LEFT JOIN tipo_evaluacion te ON pp.id_tipo_evaluacion = te.id 
+	LEFT JOIN lengua len ON pp.id_lengua = len.id
+	WHERE i.curp = '$curp' ORDER BY folio";
 
 	$nquery = mysqli_query($dbase, $consulta);
 } else {
@@ -19,12 +21,14 @@ if(isset($_GET['buscar_curp'])){
 	LEFT JOIN proceso p ON pp.id_proceso = p.id
 	LEFT JOIN tipo_evaluacion te ON pp.id_tipo_evaluacion = te.id";
 
-	$limits_query = "SELECT i.folio, i.curp, i.estatus, i.id_proceso_participa, CONCAT(dp.nombre, ' ', dp.apellido_paterno, ' ', dp.apellido_materno) AS nombre_completo, p.nombre_proceso, pp.ciclo, te.nombre_evaluacion, te.funcion
+	$limits_query = "SELECT i.folio, i.curp, i.estatus, i.id_proceso_participa, CONCAT(dp.nombre, ' ', dp.apellido_paterno, ' ', dp.apellido_materno) AS nombre_completo, p.nombre_proceso, pp.ciclo, te.nombre_evaluacion, te.funcion, len.nombre_lengua
 	FROM incidencia i 
 	LEFT JOIN proceso_participa pp ON i.id_proceso_participa = pp.id 
 	INNER JOIN datos_personales dp ON i.curp = dp.curp 
 	LEFT JOIN proceso p ON pp.id_proceso = p.id
-	LEFT JOIN tipo_evaluacion te ON pp.id_tipo_evaluacion = te.id ORDER BY folio";
+	LEFT JOIN tipo_evaluacion te ON pp.id_tipo_evaluacion = te.id 
+	LEFT JOIN lengua len ON pp.id_lengua = len.id
+	ORDER BY folio";
 
 	require_once 'includes/pagination.php'; // Carga las funciones para paginar los resultados.
 }
@@ -100,7 +104,16 @@ if($num_rows > 0):
 					?>
 					</td>
 					<td><?= $row['ciclo'] ?></td>
-					<td><?php if($row['nombre_evaluacion'] != null) { echo $row['funcion'].". ".$row['nombre_evaluacion']; } else { echo "No aplica."; } ?></td>          
+					<td>
+					<?php 
+					if($row['nombre_evaluacion'] != null) { 
+						echo $row['funcion'].". ".$row['nombre_evaluacion']; 
+							if(!empty($row['nombre_lengua'])){ 
+								echo '. '.$row['nombre_lengua']; 
+							}
+					} else { echo "No aplica."; } 
+					?>
+					</td>          
 					<td><span class="<?php if($row['estatus'] == 'EN PROCESO'){ echo 'green'; } else { echo 'red'; } ?>"><?= $row['estatus'] ?></span></td>      
 					<td><center><a href="detalle_incidencia.php?folio=<?= $row['folio'] ?>"><img src="css/images/ver.png" width="60%" alt="Ver detalle" title="Da click para ver el detalle de la incidencia"></a></center></td>            
 				</tr>
