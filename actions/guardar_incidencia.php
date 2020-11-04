@@ -37,7 +37,7 @@ if(!empty($nivel_educativo)){
 }
 
 // Valida que el proceso donde participa el aspirante no esté vacío.
-if(!empty($array_proceso_participa)){
+if(!empty($array_proceso_participa) && $array_proceso_participa != 'otro'){
 	$proceso_participa_separado = explode("-", $array_proceso_participa);
 	$proceso_participa          = $proceso_participa_separado[0];
 	$proceso_participa_validado = true;
@@ -81,8 +81,8 @@ if(empty($trae_documento) && !empty($requiere_respuesta)){
 } else {
 	$requiere_respuesta_validado = false;
 }
-
-if(count($errores) == 0){
+var_dump($errores);
+if(count($errores) == 0){echo $proceso_participa;
 	// Guarda la información principal del la incidencia.
 	if (empty($trae_documento)){ $trae_documento = 0; }
 	echo $consulta  = "INSERT INTO incidencia (id_proceso_participa, id_nivel_educativo, curp, descripcion, remitido_a, trae_documento, estatus) VALUES ('$proceso_participa', '$nivel_educativo', '$curp', '$descripcion', null, '$trae_documento', 'EN PROCESO')";
@@ -121,6 +121,6 @@ if(count($errores) == 0){
 	pagina($PageName."?error=NO");
 } else {
 	$_SESSION['errores'] = $errores;
-	//pagina($PageName."?curp=".$curp);
+	pagina($PageName."?curp=".$curp);
 }
 ?>

@@ -537,6 +537,43 @@ caption.Row {
 	font-weight: bold;
 }
 
+.div_principal_notificaciones {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.notificaciones {
+	display: block;
+	margin: 0 auto;
+	box-shadow: 2px 2px 3px #484848;
+	padding: 10px;
+	border-color: black;
+    border-width: 2px;
+	border-style: solid;
+	font-weight: bold;
+}
+
+#not_tut {
+	display: inline-block;
+	width: 25%;
+	padding-top: 10px;
+	height: 240px;
+	margin: 11px;
+}
+
+#cargando_tutores {
+	margin-bottom: 50px;
+}
+
+#not_enviadas {
+	width: 25%;
+	text-align: justify;
+	height: 240px;
+	margin: 11px;
+}
+
 input[type="submit"],
 input[type="button"],
 input[type="reset"],

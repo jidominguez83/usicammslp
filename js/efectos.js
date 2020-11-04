@@ -57,4 +57,16 @@ $(document).ready(function(){
         }
     });
 
+    // Desaparece botones y muestra imagen gif. de cargando.
+    $("#cargando_tutores").hide();
+    $("#gen_not_tutor").click(function() {
+        $(this).hide('fast');
+        $("#cargando_tutores").show('fast');
+    });
+
+    $("#cargando_tutorados").hide();
+    $("#gen_not_tutorado").click(function() {
+        $(this).hide('fast');
+        $("#cargando_tutorados").show('fast');
+    });
 });

@@ -17,7 +17,7 @@ require_once 'includes/funciones.php'; // Llama al archivo de funciones del sist
   <!-- Inicio del encabezado -->
   <table width="100%">
     <tr>
-      <td><img src="css/images/logo-CNSPD.png" alt="" width="300"align="left"></td>
+      <td><img src="css/images/logo-CNSPD.png" alt="" width="300" align="left"></td>
       <td align="center"><h1>UNIDAD ESTATAL DEL SISTEMA PARA LA CARRERA<br>DE LAS MAESTRAS Y LOS MAESTROS</h1></td>
       <td><img src="css/images/logo-SEGE.png" alt="" width="300" align="right"></td>
     </tr>
@@ -47,6 +47,47 @@ if(isset($_SESSION['usuario'])):
               <li><a href="listado_admision.php?ciclo=2015-2016">2015-2016</a></li>-->
             </ul>
           </li>
+          <li><a href="#">Tutoría</a>
+            <ul>
+              <li><a href="notificacion_y_correos_tutoria.php">Notificaciones a tutores y tutorados</a></li>
+            </ul>
+          </li> 
+          <!--<li><a href="#">Promoción vertical</a>
+            <ul>
+              <li><a href="#">Generar oficios</a></li>
+              <li><a href="#">Envío de correos</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Promoción horizontal</a>
+            <ul>
+              <li><a href="#">Generar oficios</a></li>
+              <li><a href="#">Envío de correos</a></li>
+            </ul>
+          </li>
+          <li><a href="#">AT y ATP</a>
+            <ul>
+              <li><a href="#">Generar oficios</a></li>
+              <li><a href="#">Envío de correos</a></li>
+            </ul>
+          </li> 
+          <li><a href="#">Beca comisión</a>
+            <ul>
+              <li><a href="#">Generar oficios</a></li>
+              <li><a href="#">Envío de correos</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Horas adicionales</a>
+            <ul>
+              <li><a href="#">Generar oficios</a></li>
+              <li><a href="#">Envío de correos</a></li>
+            </ul>
+          </li> 
+          <li><a href="#">Cambios de C.T.</a>
+            <ul>
+              <li><a href="#">Generar oficios</a></li>
+              <li><a href="#">Envío de correos</a></li>
+            </ul>
+          </li>-->  
       </ul>
   </nav>
   <!-- Fin del menú de navegación -->
